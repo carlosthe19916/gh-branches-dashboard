@@ -1,12 +1,11 @@
 import { Dispatch } from "redux";
 import { createAction } from "typesafe-actions";
-import { GithubApi } from "../../api/githubClient";
 import { alertFetchEndpoint } from "../alert/actions";
+import { getRepo } from "../../api/githubClient";
+import { AxiosResponse, AxiosError } from "axios";
 
 interface RepositoryActionMeta {
-  id: string;
-  owner: string;
-  repository: string;
+  repositoryId: string;
 }
 
 export const fetchContextRepositoryRequest = createAction(
@@ -19,24 +18,22 @@ export const fetchContextRepositoryFailure = createAction(
   "contextRepository/fetch/failure"
 )<any, RepositoryActionMeta>();
 
-export const fetchContextRepository = (owner: string, repository: string) => {
+export const fetchContextRepository = (repositoryId: string) => {
   return (dispatch: Dispatch) => {
     const meta: RepositoryActionMeta = {
-      id: `${owner}/${owner}`,
-      owner,
-      repository
+      repositoryId
     };
 
     dispatch(fetchContextRepositoryRequest(meta));
 
-    return GithubApi.repos(owner, repository)
-      .fetch()
-      .then((res: any) => {
-        dispatch(fetchContextRepositorySuccess(res, meta));
+    const ownerRepository: string[] = repositoryId.split("/");
+    return getRepo(ownerRepository[0], ownerRepository[1])
+      .then((res: AxiosResponse<any>) => {
+        dispatch(fetchContextRepositorySuccess(res.data, meta));
       })
-      .catch((err: any) => {
+      .catch((err: AxiosError) => {
         dispatch(fetchContextRepositoryFailure(err, meta));
-        alertFetchEndpoint("Repository not found", err)(dispatch);
+        alertFetchEndpoint("Error fetching " + repositoryId, err)(dispatch);
       });
   };
 };

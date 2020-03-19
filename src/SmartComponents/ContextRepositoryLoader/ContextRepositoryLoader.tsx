@@ -10,12 +10,11 @@ interface StateToProps {
 }
 
 interface DispatchToProps {
-  fetchCtxRepository: (owner: string, repository: string) => any;
+  fetchCtxRepository: (repositoryId: string) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
-  owner: string;
-  repository: string;
+  repositoryId: string;
   children: React.ReactNode;
 }
 
@@ -23,8 +22,8 @@ interface State {}
 
 export class ContextRepositoryLoader extends React.Component<Props, State> {
   componentDidMount() {
-    const { fetchCtxRepository, owner, repository } = this.props;
-    fetchCtxRepository(owner, repository);
+    const { fetchCtxRepository, repositoryId } = this.props;
+    fetchCtxRepository(repositoryId);
   }
 
   renderLoading = () => {
