@@ -7,13 +7,12 @@ import { PageBranches } from "./PresentationalComponents/Pages/PageBranches";
 export const AppRoutes = () => {
   return (
     <Switch>
-      <Route path="/home" component={PageHome} />
+      <Route path="/" component={PageHome} />
       <Route
         path="/monitor/:owner/:repository/branches"
         component={PageBranches}
       />
       <Route path="/error403" component={PageForbidden403} />
-      <Route path="/" render={() => <Redirect to={"/home"} />} />
     </Switch>
   );
 };
