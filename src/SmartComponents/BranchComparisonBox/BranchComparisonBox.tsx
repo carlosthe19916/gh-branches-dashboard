@@ -37,12 +37,6 @@ export class BranchComparisonBox extends React.Component<Props, State> {
   render() {
     const { branchComparison } = this.props;
 
-    console.log("branchComparison", branchComparison);
-    console.log(
-      "branchComparison",
-      branchComparison ? branchComparison.behind_by : ""
-    );
-
     return (
       <React.Fragment>
         {branchComparison &&
