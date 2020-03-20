@@ -2,7 +2,7 @@
   "name": "gh-branches-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://carlosthe19916.github.io/gh-branches-dashboard",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/lab": "^4.0.0-alpha.46",
