@@ -3,27 +3,34 @@ import { FetchStatus } from "../common";
 import {
   fetchContextRepositoryRequest,
   fetchContextRepositorySuccess,
-  fetchContextRepositoryFailure
+  fetchContextRepositoryFailure,
+  setDefaultBranchContextRepository
 } from "./actions";
+import { AxiosError } from "axios";
 
 export const stateKey = "contextRepository";
 
 export type ContextRepositoryState = Readonly<{
   repository: any | undefined;
-  error: any | undefined;
+  error: AxiosError | undefined;
   fetchStatus: FetchStatus;
+
+  defaultBranch: any | undefined;
 }>;
 
 export const defaultState: ContextRepositoryState = {
   repository: undefined,
   error: undefined,
-  fetchStatus: "none"
+  fetchStatus: "none",
+
+  defaultBranch: undefined
 };
 
 export type ContextRepositoryAction = ActionType<
   | typeof fetchContextRepositoryRequest
   | typeof fetchContextRepositorySuccess
   | typeof fetchContextRepositoryFailure
+  | typeof setDefaultBranchContextRepository
 >;
 
 export function contextRepositoryReducer(
@@ -48,6 +55,12 @@ export function contextRepositoryReducer(
         ...state,
         fetchStatus: "complete",
         error: action.payload
+      };
+
+    case getType(setDefaultBranchContextRepository):
+      return {
+        ...state,
+        defaultBranch: { ...action.payload }
       };
 
     default:

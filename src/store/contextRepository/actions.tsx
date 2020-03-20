@@ -18,6 +18,10 @@ export const fetchContextRepositoryFailure = createAction(
   "contextRepository/fetch/failure"
 )<any, RepositoryActionMeta>();
 
+export const setDefaultBranchContextRepository = createAction(
+  "contextRepository/defaultBranch/set"
+)<any>();
+
 export const fetchContextRepository = (repositoryId: string) => {
   return (dispatch: Dispatch) => {
     const meta: RepositoryActionMeta = {

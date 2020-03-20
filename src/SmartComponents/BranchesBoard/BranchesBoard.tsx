@@ -1,13 +1,6 @@
 import React from "react";
 import { FetchStatus } from "../../store/common";
-import { OwnProps } from ".";
-import {
-  Flex,
-  FlexItem,
-  Card,
-  CardBody,
-  CardHeader
-} from "@patternfly/react-core";
+import { Flex, FlexItem } from "@patternfly/react-core";
 import Branch from "../Branch";
 
 interface StateToProps {
@@ -19,26 +12,57 @@ interface StateToProps {
 
 interface DispatchToProps {
   fetchBranches: (repositoryId: string) => any;
+  setDefaultBranchContextRepository: (branch: any) => any;
 }
 
-interface Props extends StateToProps, DispatchToProps, OwnProps {}
+interface Props extends StateToProps, DispatchToProps {
+  userDefinedBranchOrder: string[];
+}
 
 interface State {}
 
 export class BranchesBoard extends React.Component<Props, State> {
   componentDidMount() {
-    const { fetchBranches, repositoryId } = this.props;
-    fetchBranches(repositoryId);
+    const { fetchBranches, ctxRepository } = this.props;
+    fetchBranches(ctxRepository.full_name);
   }
 
   render() {
-    const { branches, repositoryId } = this.props;
+    const { ctxRepository, branches, userDefinedBranchOrder } = this.props;
+    const { setDefaultBranchContextRepository } = this.props;
+
+    const branchesList = branches || [];
+
+    // Default branch
+    const defaultBranch = branchesList.find(
+      b => b.name === ctxRepository.default_branch
+    );
+    if (defaultBranch) {
+      setDefaultBranchContextRepository(defaultBranch);
+    }
+
+    // Sort
+    branchesList.sort((a, b) => {
+      if (defaultBranch) {
+        if (defaultBranch.name === a.name) return -1;
+        else if (defaultBranch.name === b.name) return 1;
+      }
+
+      const aIndex = userDefinedBranchOrder.findIndex(p => a.name === p);
+      const bIndex = userDefinedBranchOrder.findIndex(p => b.name === p);
+
+      if (aIndex >= 0 && bIndex >= 0) return aIndex - bIndex;
+      else if (aIndex >= 0 && bIndex === -1) return 1;
+      else if (aIndex === -1 && bIndex >= 0 - 1) return -1;
+
+      return a.name.localeCompare(b.name);
+    });
 
     return (
       <Flex>
-        {(branches || []).map((b, i) => (
+        {branchesList.map(b => (
           <FlexItem key={b.name}>
-            <Branch repositoryId={repositoryId} branch={b} />
+            <Branch branch={b} />
           </FlexItem>
         ))}
       </Flex>

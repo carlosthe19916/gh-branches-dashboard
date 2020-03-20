@@ -6,7 +6,11 @@ import {
   contextRepositoryReducer
 } from "./contextRepository";
 import { branchesStateKey, branchesReducer } from "./branches";
-import { commitsStateKey, commitsReducer } from "./commits";
+import { branchCommitsStateKey, branchCommitsReducer } from "./branchCommits";
+import {
+  branchComparisonStateKey,
+  branchComparisonReducer
+} from "./branchComparison";
 
 const frontendComponentsNotifications = require("@redhat-cloud-services/frontend-components-notifications");
 
@@ -17,5 +21,6 @@ export const rootReducer = combineReducers({
   [deleteDialogStateKey]: deleteDialogReducer,
   [contextRepositoryStateKey]: contextRepositoryReducer,
   [branchesStateKey]: branchesReducer,
-  [commitsStateKey]: commitsReducer
+  [branchCommitsStateKey]: branchCommitsReducer,
+  [branchComparisonStateKey]: branchComparisonReducer
 });

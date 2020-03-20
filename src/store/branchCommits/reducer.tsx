@@ -1,37 +1,38 @@
 import { ActionType, getType } from "typesafe-actions";
 import { FetchStatus } from "../common";
 import {
-  fetchCommitsRequest,
-  fetchCommitsSuccess,
-  fetchCommitsFailure
+  fetchBranchCommitsRequest,
+  fetchBranchCommitsSuccess,
+  fetchBranchCommitsFailure
 } from "./actions";
+import { AxiosError } from "axios";
 
-export const stateKey = "commits";
+export const stateKey = "branchCommits";
 
-export type CommitsState = Readonly<{
+export type BranchCommitsState = Readonly<{
   byId: Map<string, any[]>;
-  errors: Map<string, any | undefined>;
+  errors: Map<string, AxiosError | undefined>;
   fetchStatus: Map<string, FetchStatus>;
 }>;
 
-export const defaultState: CommitsState = {
+export const defaultState: BranchCommitsState = {
   byId: new Map(),
   errors: new Map(),
   fetchStatus: new Map()
 };
 
-export type BranchesAction = ActionType<
-  | typeof fetchCommitsRequest
-  | typeof fetchCommitsSuccess
-  | typeof fetchCommitsFailure
+export type BranchCommitsAction = ActionType<
+  | typeof fetchBranchCommitsRequest
+  | typeof fetchBranchCommitsSuccess
+  | typeof fetchBranchCommitsFailure
 >;
 
-export function commitsReducer(
+export function branchCommitsReducer(
   state = defaultState,
-  action: BranchesAction
-): CommitsState {
+  action: BranchCommitsAction
+): BranchCommitsState {
   switch (action.type) {
-    case getType(fetchCommitsRequest):
+    case getType(fetchBranchCommitsRequest):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
@@ -39,7 +40,7 @@ export function commitsReducer(
           "inProgress"
         )
       };
-    case getType(fetchCommitsSuccess):
+    case getType(fetchBranchCommitsSuccess):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
@@ -49,7 +50,7 @@ export function commitsReducer(
         byId: new Map(state.byId).set(action.meta.branch, action.payload),
         errors: new Map(state.errors).set(action.meta.branch, undefined)
       };
-    case getType(fetchCommitsFailure):
+    case getType(fetchBranchCommitsFailure):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(

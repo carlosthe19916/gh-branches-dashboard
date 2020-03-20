@@ -8,7 +8,7 @@ import {
   EmptyStateBody,
   Button
 } from "@patternfly/react-core";
-import { GithubIcon, AngleUpIcon } from "@patternfly/react-icons";
+import { GithubIcon, LevelUpAltIcon } from "@patternfly/react-icons";
 import { AppRouterProps } from "../../models/routerProps";
 
 var gitRegex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)$/;
@@ -65,7 +65,7 @@ export const SearchRepository: React.FC<Props> = ({ history }) => {
         Paste your repository URL and then click in the button below.
         <Button
           variant="link"
-          icon={<AngleUpIcon />}
+          icon={<LevelUpAltIcon />}
           iconPosition="right"
           onClick={handleSelectExampleRepoUrl}
         >

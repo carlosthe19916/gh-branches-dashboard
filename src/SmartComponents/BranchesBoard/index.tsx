@@ -1,15 +1,14 @@
 import { connect } from "react-redux";
 import { createMapStateToProps } from "../../store/common";
-import { contextRepositorySelectors } from "../../store/contextRepository";
+import {
+  contextRepositoryActions,
+  contextRepositorySelectors
+} from "../../store/contextRepository";
 import { branchesActions, branchesSelectors } from "../../store/branches";
-import { BranchesBoard as BranchesBoard } from "./BranchesBoard";
+import { BranchesBoard } from "./BranchesBoard";
 
-export interface OwnProps {
-  repositoryId: string;
-}
-
-const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
-  const repoId = ownProps.repositoryId;
+const mapStateToProps = createMapStateToProps(state => {
+  const repoId = contextRepositorySelectors.repository(state).full_name;
   return {
     ctxRepository: contextRepositorySelectors.repository(state),
     branches: branchesSelectors.selectBranches(state, repoId),
@@ -19,7 +18,9 @@ const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
 });
 
 const mapDispatchToProps = {
-  fetchBranches: branchesActions.fetchBranches
+  fetchBranches: branchesActions.fetchBranches,
+  setDefaultBranchContextRepository:
+    contextRepositoryActions.setDefaultBranchContextRepository
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BranchesBoard);

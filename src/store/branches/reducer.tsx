@@ -5,12 +5,13 @@ import {
   fetchBranchesSuccess,
   fetchBranchesFailure
 } from "./actions";
+import { AxiosError } from "axios";
 
 export const stateKey = "branches";
 
 export type BranchesState = Readonly<{
   byId: Map<string, any[]>;
-  errors: Map<string, any | undefined>;
+  errors: Map<string, AxiosError | undefined>;
   fetchStatus: Map<string, FetchStatus>;
 }>;
 
