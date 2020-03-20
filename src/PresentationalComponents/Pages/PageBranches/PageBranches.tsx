@@ -26,7 +26,7 @@ export const PageBranches: React.FC<PageBranchesProps> = ({
     userDefinedBranchOrder = [queryParams.branchOrder];
   } else if (Array.isArray(queryParams.branchOrder)) {
     userDefinedBranchOrder = queryParams.branchOrder;
-  } else {
+  } else if (queryParams.branchOrder) {
     console.warn(
       "branchOrder should be string or string[]",
       userDefinedBranchOrder
