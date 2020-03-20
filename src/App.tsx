@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <HorizontalLayout>
           <AppRoutes />
           <DeleteMessageDialog />
