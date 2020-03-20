@@ -23,6 +23,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn test --watchAll=false -- --coverage
+        env:
+          CI: true
       - name: Codecov
         if: matrix.node-version == '10.x'
         uses: codecov/codecov-action@v1
