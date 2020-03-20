@@ -23,9 +23,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install
       - run: yarn test --watchAll=false -- --coverage
-      - name: Coverage
+      - name: Codecov
         if: matrix.node-version == '10.x'
-        run: npx codecov
+        uses: codecov/codecov-action@v1
 
   release-nodejs-10:
     runs-on: ubuntu-latest
