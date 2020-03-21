@@ -1,39 +1,39 @@
 import { ActionType, getType } from "typesafe-actions";
 import { FetchStatus } from "../common";
 import {
-  fetchBranchesRequest,
-  fetchBranchesSuccess,
-  fetchBranchesFailure
+  fetchRepoBranchesRequest,
+  fetchRepoBranchesSuccess,
+  fetchRepoBranchesFailure
 } from "./actions";
 import { AxiosError } from "axios";
 import { BranchGh } from "../../models/github-models";
 
-export const stateKey = "branches";
+export const stateKey = "repoBranches";
 
-export type BranchesState = Readonly<{
+export type RepoBranchesState = Readonly<{
   byId: Map<string, BranchGh[]>;
   errors: Map<string, AxiosError | undefined>;
   fetchStatus: Map<string, FetchStatus>;
 }>;
 
-export const defaultState: BranchesState = {
+export const defaultState: RepoBranchesState = {
   byId: new Map(),
   errors: new Map(),
   fetchStatus: new Map()
 };
 
-export type BranchesAction = ActionType<
-  | typeof fetchBranchesRequest
-  | typeof fetchBranchesSuccess
-  | typeof fetchBranchesFailure
+export type RepoBranchesAction = ActionType<
+  | typeof fetchRepoBranchesRequest
+  | typeof fetchRepoBranchesSuccess
+  | typeof fetchRepoBranchesFailure
 >;
 
-export function branchesReducer(
+export function repoBranchesReducer(
   state = defaultState,
-  action: BranchesAction
-): BranchesState {
+  action: RepoBranchesAction
+): RepoBranchesState {
   switch (action.type) {
-    case getType(fetchBranchesRequest):
+    case getType(fetchRepoBranchesRequest):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
@@ -41,7 +41,7 @@ export function branchesReducer(
           "inProgress"
         )
       };
-    case getType(fetchBranchesSuccess):
+    case getType(fetchRepoBranchesSuccess):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
@@ -51,7 +51,7 @@ export function branchesReducer(
         byId: new Map(state.byId).set(action.meta.repoFullName, action.payload),
         errors: new Map(state.errors).set(action.meta.repoFullName, undefined)
       };
-    case getType(fetchBranchesFailure):
+    case getType(fetchRepoBranchesFailure):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(

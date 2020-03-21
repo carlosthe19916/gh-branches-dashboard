@@ -4,7 +4,10 @@ import {
   contextRepositoryActions,
   contextRepositorySelectors
 } from "../../store/contextRepository";
-import { branchesActions, branchesSelectors } from "../../store/branches";
+import {
+  repoBranchesActions,
+  repoBranchesSelectors
+} from "../../store/repoBranches";
 import { BranchesBoard } from "./BranchesBoard";
 
 const mapStateToProps = createMapStateToProps(state => {
@@ -14,17 +17,17 @@ const mapStateToProps = createMapStateToProps(state => {
   return {
     ctxRepo: ctxRepository ? ctxRepository : undefined,
     ctxRepoDefaultBranch: contextRepositorySelectors.defaultBranch(state),
-    cxtRepoBranches: branchesSelectors.selectBranches(state, repoFullName),
-    ctxRepoBranchesFechStatus: branchesSelectors.selectFetchStatus(
+    cxtRepoBranches: repoBranchesSelectors.selectRepoBranches(state, repoFullName),
+    ctxRepoBranchesFechStatus: repoBranchesSelectors.selectFetchStatus(
       state,
       repoFullName
     ),
-    ctxRepoBranchesError: branchesSelectors.selectError(state, repoFullName)
+    ctxRepoBranchesError: repoBranchesSelectors.selectError(state, repoFullName)
   };
 });
 
 const mapDispatchToProps = {
-  fetchBranches: branchesActions.fetchBranches,
+  fetchBranches: repoBranchesActions.fetchRepoBranches,
   setDefaultBranchCtxRepository:
     contextRepositoryActions.setDefaultBranchContextRepository
 };

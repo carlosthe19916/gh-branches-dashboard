@@ -5,7 +5,7 @@ import {
   contextRepositoryStateKey,
   contextRepositoryReducer
 } from "./contextRepository";
-import { branchesStateKey, branchesReducer } from "./branches";
+import { repoBranchesStateKey, repoBranchesReducer } from "./repoBranches";
 import { branchCommitsStateKey, branchCommitsReducer } from "./branchCommits";
 import {
   branchComparisonStateKey,
@@ -20,7 +20,7 @@ export const rootReducer = combineReducers({
   notifications: frontendComponentsNotifications.notifications,
   [deleteDialogStateKey]: deleteDialogReducer,
   [contextRepositoryStateKey]: contextRepositoryReducer,
-  [branchesStateKey]: branchesReducer,
+  [repoBranchesStateKey]: repoBranchesReducer,
   [branchCommitsStateKey]: branchCommitsReducer,
   [branchComparisonStateKey]: branchComparisonReducer
 });

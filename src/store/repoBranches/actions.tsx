@@ -9,32 +9,30 @@ interface RepositoryActionMeta {
   repoFullName: string;
 }
 
-export const fetchBranchesRequest = createAction("branches/fetch/request")<
-  RepositoryActionMeta
->();
-export const fetchBranchesSuccess = createAction("branches/fetch/success")<
-  BranchGh[],
-  RepositoryActionMeta
->();
-export const fetchBranchesFailure = createAction("branches/fetch/failure")<
-  AxiosError,
-  RepositoryActionMeta
->();
+export const fetchRepoBranchesRequest = createAction(
+  "repoBranches/fetch/request"
+)<RepositoryActionMeta>();
+export const fetchRepoBranchesSuccess = createAction(
+  "repoBranches/fetch/success"
+)<BranchGh[], RepositoryActionMeta>();
+export const fetchRepoBranchesFailure = createAction(
+  "repoBranches/fetch/failure"
+)<AxiosError, RepositoryActionMeta>();
 
-export const fetchBranches = (repoFullName: string) => {
+export const fetchRepoBranches = (repoFullName: string) => {
   return (dispatch: Dispatch) => {
     const meta: RepositoryActionMeta = {
       repoFullName
     };
 
-    dispatch(fetchBranchesRequest(meta));
+    dispatch(fetchRepoBranchesRequest(meta));
 
     return getRepoBranches(repoFullName)
       .then((res: AxiosResponse<BranchGh[]>) => {
-        dispatch(fetchBranchesSuccess(res.data, meta));
+        dispatch(fetchRepoBranchesSuccess(res.data, meta));
       })
       .catch((err: AxiosError) => {
-        dispatch(fetchBranchesFailure(err, meta));
+        dispatch(fetchRepoBranchesFailure(err, meta));
         alertFetchEndpoint(
           "Error fetching " + repoFullName + " branches",
           err

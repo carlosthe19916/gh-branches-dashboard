@@ -3,11 +3,10 @@ import { FetchStatus } from "../../store/common";
 import { OwnProps } from ".";
 import Box from "@material-ui/core/Box";
 import BranchComparisonBox from "../BranchComparisonWrapper";
-import { RepoGh, CommitGh } from "../../models/github-models";
+import { CommitGh } from "../../models/github-models";
 import { AxiosError } from "axios";
 
 interface StateToProps {
-  repo: RepoGh;
   branchCommits: CommitGh[] | undefined;
   branchCommitsFechStatus: FetchStatus | undefined;
   branchCommitsError: AxiosError | undefined;

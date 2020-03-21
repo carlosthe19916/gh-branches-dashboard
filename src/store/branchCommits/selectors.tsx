@@ -1,15 +1,22 @@
 import { RootState } from "../rootReducer";
-import { stateKey } from "./reducer";
+import { stateKey, getIdQuery } from "./reducer";
 
 export const branchCommitsState = (state: RootState) => state[stateKey];
 
-export const selectBranchCommits = (state: RootState, branch: string) =>
-  branchCommitsState(state).byId.get(branch);
+export const selectBranchCommits = (
+  state: RootState,
+  repoFullName: string,
+  branchName: string
+) => branchCommitsState(state).byId.get(getIdQuery(repoFullName, branchName));
 
 export const selectBranchCommitsFetchStatus = (
   state: RootState,
-  branch: string
-) => branchCommitsState(state).fetchStatus.get(branch);
+  repoFullName: string,
+  branchName: string
+) => branchCommitsState(state).fetchStatus.get(getIdQuery(repoFullName, branchName));
 
-export const selectBranchCommitsError = (state: RootState, branch: string) =>
-  branchCommitsState(state).errors.get(branch);
+export const selectBranchCommitsError = (
+  state: RootState,
+  repoFullName: string,
+  branchName: string
+) => branchCommitsState(state).errors.get(getIdQuery(repoFullName, branchName));

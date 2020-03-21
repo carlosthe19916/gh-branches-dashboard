@@ -7,7 +7,7 @@ import { CommitGh } from "../../models/github-models";
 
 interface RepositoryActionMeta {
   repoFullName: string;
-  branch: string;
+  branchName: string;
 }
 
 export const fetchBranchCommitsRequest = createAction(
@@ -20,23 +20,26 @@ export const fetchBranchCommitsFailure = createAction(
   "branchCommits/fetch/failure"
 )<AxiosError, RepositoryActionMeta>();
 
-export const fetchBranchCommits = (repoFullName: string, branch: string) => {
+export const fetchBranchCommits = (
+  repoFullName: string,
+  branchName: string
+) => {
   return (dispatch: Dispatch) => {
     const meta: RepositoryActionMeta = {
       repoFullName,
-      branch
+      branchName
     };
 
     dispatch(fetchBranchCommitsRequest(meta));
 
-    return getRepoBranchCommits(repoFullName, branch)
+    return getRepoBranchCommits(repoFullName, branchName)
       .then((res: AxiosResponse<CommitGh[]>) => {
         dispatch(fetchBranchCommitsSuccess(res.data, meta));
       })
       .catch((err: AxiosError) => {
         dispatch(fetchBranchCommitsFailure(err, meta));
         alertFetchEndpoint(
-          "Error fetching " + branch + "'s commits",
+          "Error fetching " + branchName + "'s commits",
           err
         )(dispatch);
       });

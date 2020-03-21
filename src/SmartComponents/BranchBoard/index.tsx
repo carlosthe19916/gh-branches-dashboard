@@ -5,29 +5,30 @@ import {
   branchCommitsSelectors
 } from "../../store/branchCommits";
 import { BranchBoard as BranchesBoard } from "./BranchBoard";
-import { BranchGh } from "../../models/github-models";
+import { BranchGh, RepoGh } from "../../models/github-models";
 
 export interface OwnProps {
+  repo: RepoGh;
   branch: BranchGh;
 }
 
-const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
-  const branchName = ownProps.branch.name;
-  return {
-    branchCommits: branchCommitsSelectors.selectBranchCommits(
-      state,
-      branchName
-    ),
-    branchCommitsFechStatus: branchCommitsSelectors.selectBranchCommitsFetchStatus(
-      state,
-      branchName
-    ),
-    branchCommitsError: branchCommitsSelectors.selectBranchCommitsError(
-      state,
-      branchName
-    )
-  };
-});
+const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => ({
+  branchCommits: branchCommitsSelectors.selectBranchCommits(
+    state,
+    ownProps.repo.full_name,
+    ownProps.branch.name
+  ),
+  branchCommitsFechStatus: branchCommitsSelectors.selectBranchCommitsFetchStatus(
+    state,
+    ownProps.repo.full_name,
+    ownProps.branch.name
+  ),
+  branchCommitsError: branchCommitsSelectors.selectBranchCommitsError(
+    state,
+    ownProps.repo.full_name,
+    ownProps.branch.name
+  )
+}));
 
 const mapDispatchToProps = {
   fetchBranchCommits: branchCommitsActions.fetchBranchCommits

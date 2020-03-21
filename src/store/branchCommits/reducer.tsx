@@ -10,6 +10,10 @@ import { CommitGh } from "../../models/github-models";
 
 export const stateKey = "branchCommits";
 
+export const getIdQuery = (repoFullName: string, branchName: string) => {
+  return `${repoFullName}...${branchName}`;
+};
+
 export type BranchCommitsState = Readonly<{
   byId: Map<string, CommitGh[]>;
   errors: Map<string, AxiosError | undefined>;
@@ -17,7 +21,7 @@ export type BranchCommitsState = Readonly<{
 }>;
 
 export const defaultState: BranchCommitsState = {
-  byId: new Map(),
+  byId: new Map(), // repoFullName...branchName
   errors: new Map(),
   fetchStatus: new Map()
 };
@@ -37,7 +41,7 @@ export function branchCommitsReducer(
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.payload.branch,
+          getIdQuery(action.payload.repoFullName, action.payload.branchName),
           "inProgress"
         )
       };
@@ -45,20 +49,29 @@ export function branchCommitsReducer(
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.meta.repoFullName,
+          getIdQuery(action.meta.repoFullName, action.meta.branchName),
           "complete"
         ),
-        byId: new Map(state.byId).set(action.meta.branch, action.payload),
-        errors: new Map(state.errors).set(action.meta.branch, undefined)
+        byId: new Map(state.byId).set(
+          getIdQuery(action.meta.repoFullName, action.meta.branchName),
+          action.payload
+        ),
+        errors: new Map(state.errors).set(
+          getIdQuery(action.meta.repoFullName, action.meta.branchName),
+          undefined
+        )
       };
     case getType(fetchBranchCommitsFailure):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.meta.branch,
+          getIdQuery(action.meta.repoFullName, action.meta.branchName),
           "complete"
         ),
-        errors: new Map(state.errors).set(action.meta.branch, action.payload)
+        errors: new Map(state.errors).set(
+          getIdQuery(action.meta.repoFullName, action.meta.branchName),
+          action.payload
+        )
       };
 
     default:
