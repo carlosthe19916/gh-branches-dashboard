@@ -1,11 +1,10 @@
 import { connect } from "react-redux";
 import { createMapStateToProps } from "../../store/common";
-import { contextRepositorySelectors } from "../../store/contextRepository";
 import {
   branchCommitsActions,
   branchCommitsSelectors
 } from "../../store/branchCommits";
-import { Branch as BranchesBoard } from "./Branch";
+import { BranchBoard as BranchesBoard } from "./BranchBoard";
 import { BranchGh } from "../../models/github-models";
 
 export interface OwnProps {
@@ -15,13 +14,15 @@ export interface OwnProps {
 const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
   const branchName = ownProps.branch.name;
   return {
-    ctxRepository: contextRepositorySelectors.repository(state),
-    commits: branchCommitsSelectors.selectBranchCommits(state, branchName),
-    commitsFechStatus: branchCommitsSelectors.selectBranchCommitsFetchStatus(
+    branchCommits: branchCommitsSelectors.selectBranchCommits(
       state,
       branchName
     ),
-    commitsError: branchCommitsSelectors.selectBranchCommitsError(
+    branchCommitsFechStatus: branchCommitsSelectors.selectBranchCommitsFetchStatus(
+      state,
+      branchName
+    ),
+    branchCommitsError: branchCommitsSelectors.selectBranchCommitsError(
       state,
       branchName
     )
@@ -29,7 +30,7 @@ const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
 });
 
 const mapDispatchToProps = {
-  fetchCommits: branchCommitsActions.fetchBranchCommits
+  fetchBranchCommits: branchCommitsActions.fetchBranchCommits
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BranchesBoard);

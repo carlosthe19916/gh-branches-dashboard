@@ -7,37 +7,31 @@ import {
   ComparisonBranchGh
 } from "../models/github-models";
 
-export const getRepo = (
-  owner: string,
-  repository: string
-): AxiosPromise<RepoGh> => {
-  return ApiClient.get<RepoGh>(`/repos/${owner}/${repository}`);
+export const getRepo = (repoFullName: string): AxiosPromise<RepoGh> => {
+  return ApiClient.get<RepoGh>(`/repos/${repoFullName}`);
 };
 
 export const getRepoBranches = (
-  owner: string,
-  repository: string
+  repoFullName: string
 ): AxiosPromise<BranchGh[]> => {
-  return ApiClient.get<BranchGh[]>(`/repos/${owner}/${repository}/branches`);
+  return ApiClient.get<BranchGh[]>(`/repos/${repoFullName}/branches`);
 };
 
 export const getRepoBranchCommits = (
-  owner: string,
-  repository: string,
+  repoFullName: string,
   branch: string
 ): AxiosPromise<CommitGh[]> => {
   return ApiClient.get<CommitGh[]>(
-    `/repos/${owner}/${repository}/commits?sha=${branch}`
+    `/repos/${repoFullName}/commits?sha=${branch}`
   );
 };
 
 export const getRepoBranchComparison = (
-  owner: string,
-  repository: string,
+  repoFullName: string,
   branch1: string,
   branch2: string
 ): AxiosPromise<ComparisonBranchGh> => {
   return ApiClient.get<ComparisonBranchGh>(
-    `/repos/${owner}/${repository}/compare/${owner}:${branch1}...${owner}:${branch2}`
+    `/repos/${repoFullName}/compare/${branch1}...${branch2}`
   );
 };

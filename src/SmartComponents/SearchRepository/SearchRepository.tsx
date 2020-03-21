@@ -34,14 +34,12 @@ export const SearchRepository: React.FC<Props> = ({ history }) => {
   };
 
   const handlePrimaryButtonClick = () => {
-    const ownerRepository: string[] = repoUrl
+    const repoFullName: string[] = repoUrl
       .replace("https://github.com/", "")
       .replace(".git", "")
       .split("/");
 
-    history.push(
-      `/monitor/${ownerRepository[0]}/${ownerRepository[1]}/branches`
-    );
+    history.push(`/monitor/${repoFullName[0]}/${repoFullName[1]}/branches`);
   };
 
   return (

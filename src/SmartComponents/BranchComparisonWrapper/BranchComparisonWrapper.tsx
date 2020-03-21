@@ -2,7 +2,7 @@ import React from "react";
 import { FetchStatus } from "../../store/common";
 import { OwnProps } from ".";
 import { AxiosError } from "axios";
-import { ComparisonBranchGh } from "../../models/github-models";
+import { ComparisonBranchGh, RepoGh } from "../../models/github-models";
 
 interface StateToProps {
   branchComparison: ComparisonBranchGh | undefined;
@@ -12,31 +12,32 @@ interface StateToProps {
 
 interface DispatchToProps {
   fetchBranchComparison: (
-    repositoryId: string,
-    branch1: string,
-    branch2: string
+    repoFullName: string,
+    branchBase: string,
+    branchToCompare: string
   ) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps, OwnProps {
-  repositoryId: string;
+  repo: RepoGh;
+  children: React.ReactNode;
 }
 
 interface State {}
 
-export class BranchComparisonBox extends React.Component<Props, State> {
+export class BranchComparisonWrapper extends React.Component<Props, State> {
   componentDidMount() {
     const {
       fetchBranchComparison,
-      repositoryId,
-      branch1,
-      branch2
+      repo,
+      branchBase,
+      branchToCompare
     } = this.props;
-    fetchBranchComparison(repositoryId, branch1, branch2);
+    fetchBranchComparison(repo.full_name, branchBase, branchToCompare);
   }
 
   render() {
-    const { branchComparison } = this.props;
+    const { branchComparison, children } = this.props;
 
     return (
       <React.Fragment>
@@ -53,7 +54,7 @@ export class BranchComparisonBox extends React.Component<Props, State> {
                   </span>
                   <h2
                     className="pf-c-notification-drawer__list-item-header-title"
-                    style={{ width: 230, whiteSpace: "nowrap" }}
+                    style={{ width: 200, whiteSpace: "nowrap" }}
                   >
                     <span className="pf-screen-reader">
                       Success notification:
@@ -63,6 +64,7 @@ export class BranchComparisonBox extends React.Component<Props, State> {
               </li>
             </ul>
           ))}
+        {children}
       </React.Fragment>
     );
   }

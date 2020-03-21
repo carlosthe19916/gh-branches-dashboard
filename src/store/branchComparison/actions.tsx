@@ -6,7 +6,7 @@ import { AxiosResponse, AxiosError } from "axios";
 import { ComparisonBranchGh } from "../../models/github-models";
 
 interface RepositoryActionMeta {
-  repositoryId: string;
+  repoFullName: string;
   branch1: string;
   branch2: string;
 }
@@ -22,26 +22,20 @@ export const fetchBranchComparisonFailure = createAction(
 )<AxiosError, RepositoryActionMeta>();
 
 export const fetchBranchComparison = (
-  repositoryId: string,
+  repoFullName: string,
   branch1: string,
   branch2: string
 ) => {
   return (dispatch: Dispatch) => {
     const meta: RepositoryActionMeta = {
-      repositoryId,
+      repoFullName,
       branch1,
       branch2
     };
 
     dispatch(fetchBranchComparisonRequest(meta));
 
-    const ownerRepository: string[] = repositoryId.split("/");
-    return getRepoBranchComparison(
-      ownerRepository[0],
-      ownerRepository[1],
-      branch1,
-      branch2
-    )
+    return getRepoBranchComparison(repoFullName, branch1, branch2)
       .then((res: AxiosResponse<ComparisonBranchGh>) => {
         dispatch(fetchBranchComparisonSuccess(res.data, meta));
       })

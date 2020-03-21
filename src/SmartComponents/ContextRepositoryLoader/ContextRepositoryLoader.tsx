@@ -20,13 +20,13 @@ export interface ContextRepositoryLoaderStateToProps {
 }
 
 export interface ContextRepositoryLoaderDispatchToProps {
-  fetchCtxRepository: (repositoryId: string) => any;
+  fetchCtxRepository: (repoFullName: string) => any;
 }
 
 export interface ContextRepositoryLoaderProps
   extends ContextRepositoryLoaderStateToProps,
     ContextRepositoryLoaderDispatchToProps {
-  repositoryId: string;
+  repoFullName: string;
   children: React.ReactNode;
 }
 
@@ -37,8 +37,8 @@ export class ContextRepositoryLoader extends React.Component<
   State
 > {
   componentDidMount() {
-    const { fetchCtxRepository, repositoryId } = this.props;
-    fetchCtxRepository(repositoryId);
+    const { fetchCtxRepository, repoFullName } = this.props;
+    fetchCtxRepository(repoFullName);
   }
 
   renderMessage = (message: string) => {
@@ -54,14 +54,14 @@ export class ContextRepositoryLoader extends React.Component<
   };
 
   renderError = () => {
-    const { repositoryId } = this.props;
+    const { repoFullName } = this.props;
     return (
       <PageSection>
         <Bullseye>
           <EmptyState variant={EmptyStateVariant.large}>
             <EmptyStateIcon icon={CloudRainIcon} />
             <Title headingLevel="h5" size="lg">
-              {repositoryId}.
+              {repoFullName}.
             </Title>
             <EmptyStateBody>
               Error fetching repository. Try to reload the page to fetch the

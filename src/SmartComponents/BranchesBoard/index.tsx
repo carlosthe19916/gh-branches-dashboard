@@ -12,19 +12,20 @@ const mapStateToProps = createMapStateToProps(state => {
   const repoFullName = ctxRepository ? ctxRepository.full_name : "";
 
   return {
-    ctxRepository: ctxRepository ? ctxRepository : undefined,
-    branches: branchesSelectors.selectBranches(state, repoFullName),
-    branchesFechStatus: branchesSelectors.selectFetchStatus(
+    ctxRepo: ctxRepository ? ctxRepository : undefined,
+    ctxRepoDefaultBranch: contextRepositorySelectors.defaultBranch(state),
+    cxtRepoBranches: branchesSelectors.selectBranches(state, repoFullName),
+    ctxRepoBranchesFechStatus: branchesSelectors.selectFetchStatus(
       state,
       repoFullName
     ),
-    branchesError: branchesSelectors.selectError(state, repoFullName)
+    ctxRepoBranchesError: branchesSelectors.selectError(state, repoFullName)
   };
 });
 
 const mapDispatchToProps = {
   fetchBranches: branchesActions.fetchBranches,
-  setDefaultBranchContextRepository:
+  setDefaultBranchCtxRepository:
     contextRepositoryActions.setDefaultBranchContextRepository
 };
 

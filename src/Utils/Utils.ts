@@ -1,3 +1,7 @@
-export const getRepositoryId = (owner: string, repo: string) => {
+export const getRepoFullName = (owner: string, repo: string) => {
     return `${owner}/${repo}`;
+}
+
+export const getOwnerAndRepoFromFullName = (repoFullName: string) => {
+    return repoFullName.split("/");
 }

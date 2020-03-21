@@ -4,16 +4,16 @@ import {
   branchComparisonActions,
   branchComparisonSelectors
 } from "../../store/branchComparison";
-import { BranchComparisonBox as BranchesBoard } from "./BranchComparisonBox";
+import { BranchComparisonWrapper as BranchesBoard } from "./BranchComparisonWrapper";
 
 export interface OwnProps {
-  branch1: any;
-  branch2: any;
+  branchBase: any;
+  branchToCompare: any;
 }
 
 const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
-  const branch1 = ownProps.branch1;
-  const branch2 = ownProps.branch2;
+  const branch1 = ownProps.branchBase;
+  const branch2 = ownProps.branchToCompare;
   return {
     branchComparison: branchComparisonSelectors.selectBranchComparison(
       state,

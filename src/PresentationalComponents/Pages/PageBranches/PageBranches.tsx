@@ -10,7 +10,7 @@ import queryString, { ParsedQuery } from "query-string";
 import { AppRouterProps } from "../../../models/routerProps";
 import ContextRepositoryLoader from "../../../SmartComponents/ContextRepositoryLoader";
 import BranchesBoard from "../../../SmartComponents/BranchesBoard";
-import { getRepositoryId } from "../../../Utils/Utils";
+import { getRepoFullName } from "../../../Utils/Utils";
 
 export interface PageBranchesProps extends AppRouterProps {}
 
@@ -31,7 +31,7 @@ export const PageBranches: React.FC<PageBranchesProps> = ({
   match,
   location
 }) => {
-  const repositoryId = getRepositoryId(
+  const repoFullName = getRepoFullName(
     match.params.owner,
     match.params.repository
   );
@@ -43,7 +43,7 @@ export const PageBranches: React.FC<PageBranchesProps> = ({
 
   return (
     <React.Fragment>
-      <ContextRepositoryLoader repositoryId={repositoryId}>
+      <ContextRepositoryLoader repoFullName={repoFullName}>
         <PageSection variant={PageSectionVariants.light}>
           <TextContent>
             <Text component="h1">Branches</Text>

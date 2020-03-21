@@ -5,7 +5,6 @@ import {
   ContextRepositoryLoaderStateToProps,
   ContextRepositoryLoaderDispatchToProps
 } from "../ContextRepositoryLoader";
-import { AxiosError } from "axios";
 
 it("Test snapshot", () => {
   const stateToProps: ContextRepositoryLoaderStateToProps = {
@@ -20,7 +19,7 @@ it("Test snapshot", () => {
     <ContextRepositoryLoader
       {...stateToProps}
       {...dispatchToProps}
-      repositoryId={"carlosthe19916/gh-branches-dashboard"}
+      repoFullName={"carlosthe19916/gh-branches-dashboard"}
     >
       <p>my content</p>
     </ContextRepositoryLoader>
@@ -42,7 +41,7 @@ it("Test snapshot :: fetch 'none'", () => {
     <ContextRepositoryLoader
       {...stateToProps}
       {...dispatchToProps}
-      repositoryId={"carlosthe19916/gh-branches-dashboard"}
+      repoFullName={"carlosthe19916/gh-branches-dashboard"}
     >
       <p>my content</p>
     </ContextRepositoryLoader>
@@ -64,7 +63,7 @@ it("Test snapshot :: fetch 'inProgress'", () => {
     <ContextRepositoryLoader
       {...stateToProps}
       {...dispatchToProps}
-      repositoryId={"carlosthe19916/gh-branches-dashboard"}
+      repoFullName={"carlosthe19916/gh-branches-dashboard"}
     >
       <p>my content</p>
     </ContextRepositoryLoader>
@@ -86,7 +85,7 @@ it("Test snapshot :: fetch 'complete'", () => {
     <ContextRepositoryLoader
       {...stateToProps}
       {...dispatchToProps}
-      repositoryId={"carlosthe19916/gh-branches-dashboard"}
+      repoFullName={"carlosthe19916/gh-branches-dashboard"}
     >
       <p>my content</p>
     </ContextRepositoryLoader>
@@ -116,7 +115,7 @@ it("Test snapshot :: error", () => {
     <ContextRepositoryLoader
       {...stateToProps}
       {...dispatchToProps}
-      repositoryId={"carlosthe19916/gh-branches-dashboard"}
+      repoFullName={"carlosthe19916/gh-branches-dashboard"}
     >
       <p>my content</p>
     </ContextRepositoryLoader>
@@ -128,7 +127,7 @@ it("Test snapshot :: error", () => {
 
 it("Test snapshot :: error 'retry'", () => {
   // Given
-  window.location.reload = jest.fn();  
+  window.location.reload = jest.fn();
 
   const stateToProps: ContextRepositoryLoaderStateToProps = {
     ctxRepositoryError: {
@@ -149,7 +148,7 @@ it("Test snapshot :: error 'retry'", () => {
     <ContextRepositoryLoader
       {...stateToProps}
       {...dispatchToProps}
-      repositoryId={"carlosthe19916/gh-branches-dashboard"}
+      repoFullName={"carlosthe19916/gh-branches-dashboard"}
     >
       <p>my content</p>
     </ContextRepositoryLoader>

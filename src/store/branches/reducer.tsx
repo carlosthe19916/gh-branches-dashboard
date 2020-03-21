@@ -37,7 +37,7 @@ export function branchesReducer(
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.payload.repositoryId,
+          action.payload.repoFullName,
           "inProgress"
         )
       };
@@ -45,21 +45,21 @@ export function branchesReducer(
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.meta.repositoryId,
+          action.meta.repoFullName,
           "complete"
         ),
-        byId: new Map(state.byId).set(action.meta.repositoryId, action.payload),
-        errors: new Map(state.errors).set(action.meta.repositoryId, undefined)
+        byId: new Map(state.byId).set(action.meta.repoFullName, action.payload),
+        errors: new Map(state.errors).set(action.meta.repoFullName, undefined)
       };
     case getType(fetchBranchesFailure):
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.meta.repositoryId,
+          action.meta.repoFullName,
           "complete"
         ),
         errors: new Map(state.errors).set(
-          action.meta.repositoryId,
+          action.meta.repoFullName,
           action.payload
         )
       };

@@ -45,7 +45,7 @@ export function branchCommitsReducer(
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.meta.repositoryId,
+          action.meta.repoFullName,
           "complete"
         ),
         byId: new Map(state.byId).set(action.meta.branch, action.payload),

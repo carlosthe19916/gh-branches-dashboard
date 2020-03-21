@@ -6,7 +6,7 @@ import { AxiosResponse, AxiosError } from "axios";
 import { BranchGh } from "../../models/github-models";
 
 interface RepositoryActionMeta {
-  repositoryId: string;
+  repoFullName: string;
 }
 
 export const fetchBranchesRequest = createAction("branches/fetch/request")<
@@ -21,23 +21,22 @@ export const fetchBranchesFailure = createAction("branches/fetch/failure")<
   RepositoryActionMeta
 >();
 
-export const fetchBranches = (repositoryId: string) => {
+export const fetchBranches = (repoFullName: string) => {
   return (dispatch: Dispatch) => {
     const meta: RepositoryActionMeta = {
-      repositoryId
+      repoFullName
     };
 
     dispatch(fetchBranchesRequest(meta));
 
-    const ownerRepository: string[] = repositoryId.split("/");
-    return getRepoBranches(ownerRepository[0], ownerRepository[1])
+    return getRepoBranches(repoFullName)
       .then((res: AxiosResponse<BranchGh[]>) => {
         dispatch(fetchBranchesSuccess(res.data, meta));
       })
       .catch((err: AxiosError) => {
         dispatch(fetchBranchesFailure(err, meta));
         alertFetchEndpoint(
-          "Error fetching " + repositoryId + " branches",
+          "Error fetching " + repoFullName + " branches",
           err
         )(dispatch);
       });

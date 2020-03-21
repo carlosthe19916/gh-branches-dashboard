@@ -1,20 +1,21 @@
 import React from "react";
 import { FetchStatus } from "../../store/common";
 import { Flex, FlexItem } from "@patternfly/react-core";
-import Branch from "../Branch";
+import BranchBoard from "../BranchBoard";
 import { RepoGh, BranchGh } from "../../models/github-models";
 import { AxiosError } from "axios";
 
 interface StateToProps {
-  ctxRepository: RepoGh | undefined;
-  branches: BranchGh[] | undefined;
-  branchesError: AxiosError | undefined;
-  branchesFechStatus: FetchStatus | undefined;
+  ctxRepo: RepoGh | undefined;
+  cxtRepoBranches: BranchGh[] | undefined;
+  ctxRepoDefaultBranch: BranchGh | undefined;
+  ctxRepoBranchesError: AxiosError | undefined;
+  ctxRepoBranchesFechStatus: FetchStatus | undefined;
 }
 
 interface DispatchToProps {
-  fetchBranches: (repositoryId: string) => any;
-  setDefaultBranchContextRepository: (branch: any) => any;
+  fetchBranches: (repoFullName: string) => any;
+  setDefaultBranchCtxRepository: (branch: BranchGh) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps {
@@ -25,36 +26,43 @@ interface State {}
 
 export class BranchesBoard extends React.Component<Props, State> {
   componentDidMount() {
-    const { fetchBranches, ctxRepository } = this.props;
+    const { fetchBranches, ctxRepo } = this.props;
+    if (ctxRepo) {
+      fetchBranches(ctxRepo.full_name);
+    }
+  }
 
-    if (ctxRepository) {
-      fetchBranches(ctxRepository.full_name);
+  componentDidUpdate(_prevProps: Props) {
+    const {
+      ctxRepo,
+      cxtRepoBranches,
+      setDefaultBranchCtxRepository
+    } = this.props;
+
+    if (ctxRepo && cxtRepoBranches && !_prevProps.ctxRepoDefaultBranch) {
+      const defaultBranch: BranchGh | undefined = cxtRepoBranches.find(
+        elem => elem.name === ctxRepo.default_branch
+      );
+
+      if (defaultBranch) {
+        setDefaultBranchCtxRepository(defaultBranch);
+      }
     }
   }
 
   render() {
-    const { ctxRepository, branches, userDefinedBranchOrder } = this.props;
-    const { setDefaultBranchContextRepository } = this.props;
+    const {
+      ctxRepo,
+      cxtRepoBranches,
+      ctxRepoDefaultBranch,
+      userDefinedBranchOrder
+    } = this.props;
 
-    const branchesList = branches || [];
-
-    let defaultBranch: BranchGh;
-    // Default branch
-    if (ctxRepository) {
-      const find = branchesList.find(
-        b => b.name === ctxRepository.default_branch
-      );
-      if (find) {
-        defaultBranch = find;
-        setDefaultBranchContextRepository(defaultBranch);
-      }
-    }
-
-    // Sort
-    branchesList.sort((a, b) => {
-      if (defaultBranch) {
-        if (defaultBranch.name === a.name) return -1;
-        else if (defaultBranch.name === b.name) return 1;
+    const branches = cxtRepoBranches ? [...cxtRepoBranches] : [];
+    branches.sort((a, b) => {
+      if (ctxRepoDefaultBranch) {
+        if (ctxRepoDefaultBranch.name === a.name) return -1;
+        else if (ctxRepoDefaultBranch.name === b.name) return 1;
       }
 
       const aIndex = userDefinedBranchOrder.findIndex(p => a.name === p);
@@ -69,9 +77,9 @@ export class BranchesBoard extends React.Component<Props, State> {
 
     return (
       <Flex>
-        {branchesList.map(b => (
-          <FlexItem key={b.name}>
-            <Branch branch={b} />
+        {ctxRepo && branches.map(element => (
+          <FlexItem key={element.name}>
+            <BranchBoard repo={ctxRepo} branch={element} />
           </FlexItem>
         ))}
       </Flex>
