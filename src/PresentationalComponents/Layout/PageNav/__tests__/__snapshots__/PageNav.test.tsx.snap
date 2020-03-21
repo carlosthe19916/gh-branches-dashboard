@@ -20,7 +20,7 @@ exports[`Test snapshot 1`] = `
       </NavLink>
     </NavItem>
     <NavItem>
-      <NavLinkBranches />
+      <Connect(NavLinkBranches) />
     </NavItem>
   </NavList>
 </Component>

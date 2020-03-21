@@ -3,7 +3,7 @@ import React from "react";
 import "./DeleteDialog.scss";
 import { deleteDialogActions } from "../../store/deleteDialog";
 
-interface Props {
+export interface DeleteDialogBaseProps {
   onDelete: () => void;
   onCancel: typeof deleteDialogActions.closeModal;
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface Props {
 
 interface State {}
 
-class DeleteDialogBase extends React.Component<Props, State> {
+export class DeleteDialogBase extends React.Component<DeleteDialogBaseProps, State> {
   public render() {
     const {
       type,
@@ -58,10 +58,8 @@ class DeleteDialogBase extends React.Component<Props, State> {
       >
         {isError
           ? `Ops! There was a problem while deleting the ${type}.`
-          : `¿Estas seguro de querer eliminar este ${type}? Esta acción eliminará todos los datos asociados a esta ${type} permanentemente.`}
+          : `Are you sure you want to delete this ${type}? This action will remove any data related to this ${type} permanently.`}
       </Modal>
     );
   }
 }
-
-export default DeleteDialogBase;

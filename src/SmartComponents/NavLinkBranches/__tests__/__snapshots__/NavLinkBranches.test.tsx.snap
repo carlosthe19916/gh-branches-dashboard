@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot :: with ctxRepository 1`] = `
+<NavLink
+  activeClassName="pf-m-current"
+  className="pf-c-nav__link"
+  to="/monitor/carlosthe19916/gh-branches-dashboard/branches"
+>
+  Branches
+</NavLink>
+`;
+
+exports[`Test snapshot :: without ctxRepository 1`] = `<Fragment />`;

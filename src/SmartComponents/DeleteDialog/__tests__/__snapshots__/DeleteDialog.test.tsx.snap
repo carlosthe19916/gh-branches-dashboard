@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<Modal
+  actions={
+    Array [
+      <Unknown
+        isDisabled={false}
+        onClick={[MockFunction]}
+        variant="danger"
+      >
+        Delete 
+        Folder
+      </Unknown>,
+      <Unknown
+        isDisabled={false}
+        onClick={[Function]}
+        variant="link"
+      >
+        Cancel
+      </Unknown>,
+    ]
+  }
+  appendTo={<body />}
+  ariaDescribedById=""
+  className=""
+  hideTitle={false}
+  isFooterLeftAligned={false}
+  isLarge={false}
+  isOpen={false}
+  isSmall={true}
+  onClose={[Function]}
+  showClose={true}
+  title="Delete myFolder?"
+>
+  Are you sure you want to delete this Folder? This action will remove any data related to this Folder permanently.
+</Modal>
+`;

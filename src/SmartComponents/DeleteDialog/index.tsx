@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import DeleteDialogBase from "./DeleteDialog";
+import { DeleteDialogBase } from "./DeleteDialog";
 import {
   deleteDialogSelectors,
   deleteDialogActions
