@@ -1,35 +1,81 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
 import { AxiosError } from "axios";
 import { FetchStatus } from "../../store/common";
-import { PageSection, Bullseye } from "@patternfly/react-core";
+import {
+  PageSection,
+  Bullseye,
+  EmptyState,
+  EmptyStateIcon,
+  Title,
+  EmptyStateVariant,
+  Button,
+  ButtonVariant,
+  EmptyStateBody
+} from "@patternfly/react-core";
+import { CloudRainIcon } from "@patternfly/react-icons";
 
-interface StateToProps {
+export interface ContextRepositoryLoaderStateToProps {
   ctxRepositoryError: AxiosError<any> | undefined;
   ctxRepositoryFetchStatus: FetchStatus;
 }
 
-interface DispatchToProps {
+export interface ContextRepositoryLoaderDispatchToProps {
   fetchCtxRepository: (repositoryId: string) => any;
 }
 
-interface Props extends StateToProps, DispatchToProps {
+export interface ContextRepositoryLoaderProps
+  extends ContextRepositoryLoaderStateToProps,
+    ContextRepositoryLoaderDispatchToProps {
   repositoryId: string;
   children: React.ReactNode;
 }
 
 interface State {}
 
-export class ContextRepositoryLoader extends React.Component<Props, State> {
+export class ContextRepositoryLoader extends React.Component<
+  ContextRepositoryLoaderProps,
+  State
+> {
   componentDidMount() {
     const { fetchCtxRepository, repositoryId } = this.props;
     fetchCtxRepository(repositoryId);
   }
 
-  renderLoading = () => {
+  renderMessage = (message: string) => {
     return (
       <PageSection>
-        <Bullseye>Loading...</Bullseye>
+        <Bullseye>{message}</Bullseye>
+      </PageSection>
+    );
+  };
+
+  reloadCurrentPage = () => {
+    window.location.reload();
+  };
+
+  renderError = () => {
+    const { repositoryId } = this.props;
+    return (
+      <PageSection>
+        <Bullseye>
+          <EmptyState variant={EmptyStateVariant.large}>
+            <EmptyStateIcon icon={CloudRainIcon} />
+            <Title headingLevel="h5" size="lg">
+              {repositoryId}.
+            </Title>
+            <EmptyStateBody>
+              Error fetching repository. Try to reload the page to fetch the
+              data again. You can reload the page clicking on the button below.
+            </EmptyStateBody>
+            <Button
+              id="ContextRepositoryLoader_retryButton"
+              onClick={this.reloadCurrentPage}
+              variant={ButtonVariant.primary}
+            >
+              Retry
+            </Button>
+          </EmptyState>
+        </Bullseye>
       </PageSection>
     );
   };
@@ -42,14 +88,16 @@ export class ContextRepositoryLoader extends React.Component<Props, State> {
     } = this.props;
 
     if (ctxRepositoryError) {
-      return <Route render={() => <Redirect to="/error404" />} />;
+      return this.renderError();
     }
 
     switch (ctxRepositoryFetchStatus) {
+      case "none":
+        return this.renderMessage("Waiting for fetch");
+      case "inProgress":
+        return this.renderMessage("Fetching...");
       case "complete":
         return <React.Fragment>{children}</React.Fragment>;
-      default:
-        return <React.Fragment>{this.renderLoading()}</React.Fragment>;
     }
   }
 }

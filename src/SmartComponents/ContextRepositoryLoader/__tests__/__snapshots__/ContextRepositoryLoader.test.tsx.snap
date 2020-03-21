@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot :: error 1`] = `
+<PageSection>
+  <Bullseye>
+    <EmptyState
+      variant="large"
+    >
+      <EmptyStateIcon
+        icon={[Function]}
+      />
+      <Title
+        headingLevel="h5"
+        size="lg"
+      >
+        carlosthe19916/gh-branches-dashboard
+        .
+      </Title>
+      <EmptyStateBody>
+        Error fetching repository. Try to reload the page to fetch the data again. You can reload the page clicking on the button below.
+      </EmptyStateBody>
+      <Component
+        id="ContextRepositoryLoader_retryButton"
+        onClick={[Function]}
+        variant="primary"
+      >
+        Retry
+      </Component>
+    </EmptyState>
+  </Bullseye>
+</PageSection>
+`;
+
+exports[`Test snapshot :: fetch 'complete' 1`] = `
+<Fragment>
+  <p>
+    my content
+  </p>
+</Fragment>
+`;
+
+exports[`Test snapshot :: fetch 'inProgress' 1`] = `
+<PageSection>
+  <Bullseye>
+    Fetching...
+  </Bullseye>
+</PageSection>
+`;
+
+exports[`Test snapshot :: fetch 'none' 1`] = `
+<PageSection>
+  <Bullseye>
+    Waiting for fetch
+  </Bullseye>
+</PageSection>
+`;
+
+exports[`Test snapshot 1`] = `
+<PageSection>
+  <Bullseye>
+    Waiting for fetch
+  </Bullseye>
+</PageSection>
+`;

@@ -1,3 +1,9 @@
+![Node.js CI](https://github.com/carlosthe19916/gh-branches-dashboard/workflows/Node.js%20CI/badge.svg)
+[![codecov](https://codecov.io/gh/carlosthe19916/gh-branches-dashboard/branch/master/graph/badge.svg)](https://codecov.io/gh/carlosthe19916/gh-branches-dashboard)
+
+# gh-branches-dashboard
+Exposes a dashboard, based on your repository branches, to have an overall view of the difference between each branch.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
