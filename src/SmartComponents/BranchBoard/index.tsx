@@ -9,6 +9,7 @@ import { BranchGh, RepoGh } from "../../models/github-models";
 
 export interface OwnProps {
   repo: RepoGh;
+  repoDefaultBranch: BranchGh;
   branch: BranchGh;
 }
 

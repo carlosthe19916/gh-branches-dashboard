@@ -12,12 +12,13 @@ export const alert = (alert: AlertModel) => {
 };
 
 export const alertFetchEndpoint = (title: string, err: AxiosError) => {
+  const message = err.response ? err.response.data.message : undefined;
   return (dispatch: Dispatch) => {
     dispatch(
       addNotification({
         variant: "danger",
         title: title,
-        description: err.message,
+        description: message ? message : err.message,
         dismissable: true
       })
     );

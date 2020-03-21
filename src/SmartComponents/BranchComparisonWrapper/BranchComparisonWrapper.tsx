@@ -2,7 +2,7 @@ import React from "react";
 import { FetchStatus } from "../../store/common";
 import { OwnProps } from ".";
 import { AxiosError } from "axios";
-import { ComparisonBranchGh, RepoGh } from "../../models/github-models";
+import { ComparisonBranchGh } from "../../models/github-models";
 
 interface StateToProps {
   branchComparison: ComparisonBranchGh | undefined;
@@ -13,13 +13,12 @@ interface StateToProps {
 interface DispatchToProps {
   fetchBranchComparison: (
     repoFullName: string,
-    branchBase: string,
-    branchToCompare: string
+    branchBaseName: string,
+    branchToCompareName: string
   ) => any;
 }
 
 interface Props extends StateToProps, DispatchToProps, OwnProps {
-  repo: RepoGh;
   children: React.ReactNode;
 }
 
@@ -33,7 +32,11 @@ export class BranchComparisonWrapper extends React.Component<Props, State> {
       branchBase,
       branchToCompare
     } = this.props;
-    fetchBranchComparison(repo.full_name, branchBase, branchToCompare);
+    fetchBranchComparison(
+      repo.full_name,
+      branchBase.name,
+      branchToCompare.name
+    );
   }
 
   render() {

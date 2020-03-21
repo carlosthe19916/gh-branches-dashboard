@@ -77,11 +77,17 @@ export class BranchesBoard extends React.Component<Props, State> {
 
     return (
       <Flex>
-        {ctxRepo && branches.map(element => (
-          <FlexItem key={element.name}>
-            <BranchBoard repo={ctxRepo} branch={element} />
-          </FlexItem>
-        ))}
+        {ctxRepo &&
+          ctxRepoDefaultBranch &&
+          branches.map(element => (
+            <FlexItem key={element.name}>
+              <BranchBoard
+                repo={ctxRepo}
+                repoDefaultBranch={ctxRepoDefaultBranch}
+                branch={element}
+              />
+            </FlexItem>
+          ))}
       </Flex>
     );
   }

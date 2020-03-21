@@ -10,26 +10,24 @@ import { ComparisonBranchGh } from "../../models/github-models";
 
 export const stateKey = "branchComparison";
 
+export const getIdQuery = (
+  repoFullName: string,
+  branchName1: string,
+  branchName2: string
+) => {
+  return `${repoFullName}:${branchName1}...${branchName2}`;
+};
+
 export type BranchComparisonState = Readonly<{
-  byBranchName: Map<string, string>;
-  byBranchNameComposedKey: Map<string, ComparisonBranchGh>;
-
-  errors: Map<string, string>;
-  errorsComposedKey: Map<string, AxiosError | undefined>;
-
-  fetchStatus: Map<string, string>;
-  fetchStatusComposedKey: Map<string, FetchStatus>;
+  byId: Map<string, ComparisonBranchGh>;
+  errors: Map<string, AxiosError | undefined>;
+  fetchStatus: Map<string, FetchStatus>;
 }>;
 
 export const defaultState: BranchComparisonState = {
-  byBranchName: new Map(),
-  byBranchNameComposedKey: new Map(),
-
+  byId: new Map(),
   errors: new Map(),
-  errorsComposedKey: new Map(),
-
-  fetchStatus: new Map(),
-  fetchStatusComposedKey: new Map()
+  fetchStatus: new Map()
 };
 
 export type BranchComparisonAction = ActionType<
@@ -37,13 +35,6 @@ export type BranchComparisonAction = ActionType<
   | typeof fetchBranchComparisonSuccess
   | typeof fetchBranchComparisonFailure
 >;
-
-export const getBranchComparisonComposedKey = (
-  branch1: string,
-  branch2: string
-) => {
-  return `${branch1}...${branch2}`;
-};
 
 export function branchComparisonReducer(
   state = defaultState,
@@ -54,14 +45,8 @@ export function branchComparisonReducer(
       return {
         ...state,
         fetchStatus: new Map(state.fetchStatus).set(
-          action.payload.branch1,
-          getBranchComparisonComposedKey(
-            action.payload.branch1,
-            action.payload.branch2
-          )
-        ),
-        fetchStatusComposedKey: new Map(state.fetchStatusComposedKey).set(
-          getBranchComparisonComposedKey(
+          getIdQuery(
+            action.payload.repoFullName,
             action.payload.branch1,
             action.payload.branch2
           ),
@@ -71,36 +56,25 @@ export function branchComparisonReducer(
     case getType(fetchBranchComparisonSuccess):
       return {
         ...state,
-        fetchStatusComposedKey: new Map(state.fetchStatusComposedKey).set(
-          getBranchComparisonComposedKey(
+        fetchStatus: new Map(state.fetchStatus).set(
+          getIdQuery(
+            action.meta.repoFullName,
             action.meta.branch1,
             action.meta.branch2
           ),
           "complete"
         ),
-        byBranchName: new Map(state.byBranchName).set(
-          action.meta.branch1,
-          getBranchComparisonComposedKey(
-            action.meta.branch1,
-            action.meta.branch2
-          )
-        ),
-        byBranchNameComposedKey: new Map(state.byBranchNameComposedKey).set(
-          getBranchComparisonComposedKey(
+        byId: new Map(state.byId).set(
+          getIdQuery(
+            action.meta.repoFullName,
             action.meta.branch1,
             action.meta.branch2
           ),
           action.payload
         ),
         errors: new Map(state.errors).set(
-          action.meta.branch1,
-          getBranchComparisonComposedKey(
-            action.meta.branch1,
-            action.meta.branch2
-          )
-        ),
-        errorsComposedKey: new Map(state.errorsComposedKey).set(
-          getBranchComparisonComposedKey(
+          getIdQuery(
+            action.meta.repoFullName,
             action.meta.branch1,
             action.meta.branch2
           ),
@@ -110,15 +84,17 @@ export function branchComparisonReducer(
     case getType(fetchBranchComparisonFailure):
       return {
         ...state,
-        fetchStatusComposedKey: new Map(state.fetchStatusComposedKey).set(
-          getBranchComparisonComposedKey(
+        fetchStatus: new Map(state.fetchStatus).set(
+          getIdQuery(
+            action.meta.repoFullName,
             action.meta.branch1,
             action.meta.branch2
           ),
           "complete"
         ),
-        errorsComposedKey: new Map(state.errorsComposedKey).set(
-          getBranchComparisonComposedKey(
+        errors: new Map(state.errors).set(
+          getIdQuery(
+            action.meta.repoFullName,
             action.meta.branch1,
             action.meta.branch2
           ),

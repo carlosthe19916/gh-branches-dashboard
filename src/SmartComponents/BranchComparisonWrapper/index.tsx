@@ -5,33 +5,34 @@ import {
   branchComparisonSelectors
 } from "../../store/branchComparison";
 import { BranchComparisonWrapper as BranchesBoard } from "./BranchComparisonWrapper";
+import { BranchGh, RepoGh } from "../../models/github-models";
 
 export interface OwnProps {
-  branchBase: any;
-  branchToCompare: any;
+  repo: RepoGh;
+  branchBase: BranchGh;
+  branchToCompare: BranchGh;
 }
 
-const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {
-  const branch1 = ownProps.branchBase;
-  const branch2 = ownProps.branchToCompare;
-  return {
-    branchComparison: branchComparisonSelectors.selectBranchComparison(
-      state,
-      branch1,
-      branch2
-    ),
-    branchComparisonFechStatus: branchComparisonSelectors.selectBranchComparisonFetchStatus(
-      state,
-      branch1,
-      branch2
-    ),
-    branchComparisonError: branchComparisonSelectors.selectBranchComparisonError(
-      state,
-      branch1,
-      branch2
-    )
-  };
-});
+const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => ({
+  branchComparison: branchComparisonSelectors.selectBranchComparison(
+    state,
+    ownProps.repo.full_name,
+    ownProps.branchBase.name,
+    ownProps.branchToCompare.name
+  ),
+  branchComparisonFechStatus: branchComparisonSelectors.selectBranchComparisonFetchStatus(
+    state,
+    ownProps.repo.full_name,
+    ownProps.branchBase.name,
+    ownProps.branchToCompare.name
+  ),
+  branchComparisonError: branchComparisonSelectors.selectBranchComparisonError(
+    state,
+    ownProps.repo.full_name,
+    ownProps.branchBase.name,
+    ownProps.branchToCompare.name
+  )
+}));
 
 const mapDispatchToProps = {
   fetchBranchComparison: branchComparisonActions.fetchBranchComparison

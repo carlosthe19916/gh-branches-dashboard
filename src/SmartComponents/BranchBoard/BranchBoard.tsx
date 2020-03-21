@@ -27,7 +27,7 @@ export class BranchBoard extends React.Component<Props, State> {
   }
 
   render() {
-    const { repo, branch, branchCommits } = this.props;
+    const { repo, repoDefaultBranch, branch, branchCommits } = this.props;
 
     return (
       <div style={{ width: "250px" }} className="pf-c-notification-drawer">
@@ -39,8 +39,8 @@ export class BranchBoard extends React.Component<Props, State> {
         <div className="pf-c-notification-drawer__body">
           <BranchComparisonBox
             repo={repo}
-            branchBase={repo.default_branch}
-            branchToCompare={branch.name}
+            branchBase={repoDefaultBranch}
+            branchToCompare={branch}
           >
             {(branchCommits || []).map(c => (
               <ul key={c.sha} className="pf-c-notification-drawer__list">
