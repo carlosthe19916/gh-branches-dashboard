@@ -3,6 +3,7 @@ import { createAction } from "typesafe-actions";
 import { alertFetchEndpoint } from "../alert/actions";
 import { getRepoBranchCommits } from "../../api/githubClient";
 import { AxiosResponse, AxiosError } from "axios";
+import { CommitGh } from "../../models/github-models";
 
 interface RepositoryActionMeta {
   repositoryId: string;
@@ -14,10 +15,10 @@ export const fetchBranchCommitsRequest = createAction(
 )<RepositoryActionMeta>();
 export const fetchBranchCommitsSuccess = createAction(
   "branchCommits/fetch/success"
-)<any, RepositoryActionMeta>();
+)<CommitGh[], RepositoryActionMeta>();
 export const fetchBranchCommitsFailure = createAction(
   "branchCommits/fetch/failure"
-)<any, RepositoryActionMeta>();
+)<AxiosError, RepositoryActionMeta>();
 
 export const fetchBranchCommits = (repositoryId: string, branch: string) => {
   return (dispatch: Dispatch) => {
@@ -30,7 +31,7 @@ export const fetchBranchCommits = (repositoryId: string, branch: string) => {
 
     const ownerRepository: string[] = repositoryId.split("/");
     return getRepoBranchCommits(ownerRepository[0], ownerRepository[1], branch)
-      .then((res: AxiosResponse<any>) => {
+      .then((res: AxiosResponse<CommitGh[]>) => {
         dispatch(fetchBranchCommitsSuccess(res.data, meta));
       })
       .catch((err: AxiosError) => {

@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<EmptyState
+  variant="full"
+>
+  <EmptyStateIcon
+    icon={[Function]}
+  />
+  <Title
+    headingLevel="h5"
+    size="lg"
+  >
+    <div
+      className="pf-l-split ins-c-conditional-filter"
+    >
+      <div
+        className="pf-l-split__item pf-m-fill"
+      >
+        <ForwardRef
+          aria-label="search repository input text"
+          className="ins-c-conditional-filter"
+          id="find-repository"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </Title>
+  <EmptyStateBody>
+    Paste your repository URL and then click in the button below.
+    <Component
+      icon={
+        <LevelUpAltIcon
+          color="currentColor"
+          noVerticalAlign={false}
+          size="sm"
+          title={null}
+        />
+      }
+      iconPosition="right"
+      onClick={[Function]}
+      variant="link"
+    >
+      https://github.com/project-xavier/xavier-ui.git
+    </Component>
+  </EmptyStateBody>
+  <Component
+    isDisabled={true}
+    onClick={[Function]}
+    variant="primary"
+  >
+    Find and monitor
+  </Component>
+</EmptyState>
+`;

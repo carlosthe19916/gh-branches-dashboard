@@ -6,12 +6,13 @@ import {
   fetchBranchComparisonFailure
 } from "./actions";
 import { AxiosError } from "axios";
+import { ComparisonBranchGh } from "../../models/github-models";
 
 export const stateKey = "branchComparison";
 
 export type BranchComparisonState = Readonly<{
   byBranchName: Map<string, string>;
-  byBranchNameComposedKey: Map<string, any>;
+  byBranchNameComposedKey: Map<string, ComparisonBranchGh>;
 
   errors: Map<string, string>;
   errorsComposedKey: Map<string, AxiosError | undefined>;

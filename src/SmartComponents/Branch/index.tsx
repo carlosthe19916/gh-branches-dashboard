@@ -6,9 +6,10 @@ import {
   branchCommitsSelectors
 } from "../../store/branchCommits";
 import { Branch as BranchesBoard } from "./Branch";
+import { BranchGh } from "../../models/github-models";
 
 export interface OwnProps {
-  branch: any;
+  branch: BranchGh;
 }
 
 const mapStateToProps = createMapStateToProps((state, ownProps: OwnProps) => {

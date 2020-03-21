@@ -3,6 +3,7 @@ import { createAction } from "typesafe-actions";
 import { alertFetchEndpoint } from "../alert/actions";
 import { getRepoBranchComparison } from "../../api/githubClient";
 import { AxiosResponse, AxiosError } from "axios";
+import { ComparisonBranchGh } from "../../models/github-models";
 
 interface RepositoryActionMeta {
   repositoryId: string;
@@ -15,10 +16,10 @@ export const fetchBranchComparisonRequest = createAction(
 )<RepositoryActionMeta>();
 export const fetchBranchComparisonSuccess = createAction(
   "branchComparison/fetch/success"
-)<any, RepositoryActionMeta>();
+)<ComparisonBranchGh, RepositoryActionMeta>();
 export const fetchBranchComparisonFailure = createAction(
   "branchComparison/fetch/failure"
-)<any, RepositoryActionMeta>();
+)<AxiosError, RepositoryActionMeta>();
 
 export const fetchBranchComparison = (
   repositoryId: string,
@@ -41,7 +42,7 @@ export const fetchBranchComparison = (
       branch1,
       branch2
     )
-      .then((res: AxiosResponse<any>) => {
+      .then((res: AxiosResponse<ComparisonBranchGh>) => {
         dispatch(fetchBranchComparisonSuccess(res.data, meta));
       })
       .catch((err: AxiosError) => {

@@ -2,9 +2,10 @@ import React from "react";
 import { FetchStatus } from "../../store/common";
 import { OwnProps } from ".";
 import { AxiosError } from "axios";
+import { ComparisonBranchGh } from "../../models/github-models";
 
 interface StateToProps {
-  branchComparison: any | undefined;
+  branchComparison: ComparisonBranchGh | undefined;
   branchComparisonError: AxiosError | undefined;
   branchComparisonFechStatus: FetchStatus | undefined;
 }

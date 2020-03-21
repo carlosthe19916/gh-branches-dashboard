@@ -8,12 +8,17 @@ import { branchesActions, branchesSelectors } from "../../store/branches";
 import { BranchesBoard } from "./BranchesBoard";
 
 const mapStateToProps = createMapStateToProps(state => {
-  const repoId = contextRepositorySelectors.repository(state).full_name;
+  const ctxRepository = contextRepositorySelectors.repository(state);
+  const repoFullName = ctxRepository ? ctxRepository.full_name : "";
+
   return {
-    ctxRepository: contextRepositorySelectors.repository(state),
-    branches: branchesSelectors.selectBranches(state, repoId),
-    branchesFechStatus: branchesSelectors.selectFetchStatus(state, repoId),
-    branchesError: branchesSelectors.selectError(state, repoId)
+    ctxRepository: ctxRepository ? ctxRepository : undefined,
+    branches: branchesSelectors.selectBranches(state, repoFullName),
+    branchesFechStatus: branchesSelectors.selectFetchStatus(
+      state,
+      repoFullName
+    ),
+    branchesError: branchesSelectors.selectError(state, repoFullName)
   };
 });
 

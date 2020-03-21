@@ -3,6 +3,7 @@ import { createAction } from "typesafe-actions";
 import { alertFetchEndpoint } from "../alert/actions";
 import { getRepo } from "../../api/githubClient";
 import { AxiosResponse, AxiosError } from "axios";
+import { RepoGh, BranchGh } from "../../models/github-models";
 
 interface RepositoryActionMeta {
   repositoryId: string;
@@ -13,14 +14,14 @@ export const fetchContextRepositoryRequest = createAction(
 )<RepositoryActionMeta>();
 export const fetchContextRepositorySuccess = createAction(
   "contextRepository/fetch/success"
-)<any, RepositoryActionMeta>();
+)<RepoGh, RepositoryActionMeta>();
 export const fetchContextRepositoryFailure = createAction(
   "contextRepository/fetch/failure"
-)<any, RepositoryActionMeta>();
+)<AxiosError, RepositoryActionMeta>();
 
 export const setDefaultBranchContextRepository = createAction(
   "contextRepository/defaultBranch/set"
-)<any>();
+)<BranchGh>();
 
 export const fetchContextRepository = (repositoryId: string) => {
   return (dispatch: Dispatch) => {
@@ -32,7 +33,7 @@ export const fetchContextRepository = (repositoryId: string) => {
 
     const ownerRepository: string[] = repositoryId.split("/");
     return getRepo(ownerRepository[0], ownerRepository[1])
-      .then((res: AxiosResponse<any>) => {
+      .then((res: AxiosResponse<RepoGh>) => {
         dispatch(fetchContextRepositorySuccess(res.data, meta));
       })
       .catch((err: AxiosError) => {

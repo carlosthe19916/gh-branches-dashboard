@@ -6,11 +6,12 @@ import {
   fetchBranchesFailure
 } from "./actions";
 import { AxiosError } from "axios";
+import { BranchGh } from "../../models/github-models";
 
 export const stateKey = "branches";
 
 export type BranchesState = Readonly<{
-  byId: Map<string, any[]>;
+  byId: Map<string, BranchGh[]>;
   errors: Map<string, AxiosError | undefined>;
   fetchStatus: Map<string, FetchStatus>;
 }>;

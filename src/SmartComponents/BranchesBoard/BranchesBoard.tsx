@@ -2,11 +2,13 @@ import React from "react";
 import { FetchStatus } from "../../store/common";
 import { Flex, FlexItem } from "@patternfly/react-core";
 import Branch from "../Branch";
+import { RepoGh, BranchGh } from "../../models/github-models";
+import { AxiosError } from "axios";
 
 interface StateToProps {
-  ctxRepository: any | undefined;
-  branches: any[] | undefined;
-  branchesError: any | undefined;
+  ctxRepository: RepoGh | undefined;
+  branches: BranchGh[] | undefined;
+  branchesError: AxiosError | undefined;
   branchesFechStatus: FetchStatus | undefined;
 }
 
@@ -24,7 +26,10 @@ interface State {}
 export class BranchesBoard extends React.Component<Props, State> {
   componentDidMount() {
     const { fetchBranches, ctxRepository } = this.props;
-    fetchBranches(ctxRepository.full_name);
+
+    if (ctxRepository) {
+      fetchBranches(ctxRepository.full_name);
+    }
   }
 
   render() {
@@ -33,12 +38,16 @@ export class BranchesBoard extends React.Component<Props, State> {
 
     const branchesList = branches || [];
 
+    let defaultBranch: BranchGh;
     // Default branch
-    const defaultBranch = branchesList.find(
-      b => b.name === ctxRepository.default_branch
-    );
-    if (defaultBranch) {
-      setDefaultBranchContextRepository(defaultBranch);
+    if (ctxRepository) {
+      const find = branchesList.find(
+        b => b.name === ctxRepository.default_branch
+      );
+      if (find) {
+        defaultBranch = find;
+        setDefaultBranchContextRepository(defaultBranch);
+      }
     }
 
     // Sort

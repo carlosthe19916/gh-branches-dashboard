@@ -6,11 +6,12 @@ import {
   fetchBranchCommitsFailure
 } from "./actions";
 import { AxiosError } from "axios";
+import { CommitGh } from "../../models/github-models";
 
 export const stateKey = "branchCommits";
 
 export type BranchCommitsState = Readonly<{
-  byId: Map<string, any[]>;
+  byId: Map<string, CommitGh[]>;
   errors: Map<string, AxiosError | undefined>;
   fetchStatus: Map<string, FetchStatus>;
 }>;

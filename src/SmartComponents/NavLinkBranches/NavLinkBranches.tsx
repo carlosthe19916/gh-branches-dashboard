@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { RepoGh } from "../../models/github-models";
 
 export interface NavLinkBranchesStateToProps {
-  ctxRepository: any | undefined;
+  ctxRepository: RepoGh | undefined;
 }
 
 export interface NavLinkBranchesDispatchToProps {}

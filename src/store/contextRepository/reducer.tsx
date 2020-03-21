@@ -7,15 +7,16 @@ import {
   setDefaultBranchContextRepository
 } from "./actions";
 import { AxiosError } from "axios";
+import { RepoGh, BranchGh } from "../../models/github-models";
 
 export const stateKey = "contextRepository";
 
 export type ContextRepositoryState = Readonly<{
-  repository: any | undefined;
+  repository: RepoGh | undefined;
   error: AxiosError | undefined;
   fetchStatus: FetchStatus;
 
-  defaultBranch: any | undefined;
+  defaultBranch: BranchGh | undefined;
 }>;
 
 export const defaultState: ContextRepositoryState = {
