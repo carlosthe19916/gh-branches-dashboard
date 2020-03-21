@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<Component
+  aria-label="Nav"
+  id="nav-primary-simple"
+>
+  <NavList
+    ariaLeftScroll="Scroll left"
+    ariaRightScroll="Scroll right"
+    className=""
+    variant="horizontal"
+  >
+    <NavItem>
+      <NavLink
+        activeClassName="pf-m-current"
+        to="/home"
+      >
+        Home
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLinkBranches />
+    </NavItem>
+  </NavList>
+</Component>
+`;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<PageHeader
+  logo={
+    <Brand
+      alt="gh-branches-dashboard"
+      src="brand.svg"
+    />
+  }
+  toolbar={
+    <React.Fragment>
+      <Toolbar>
+        <ToolbarGroup
+          className="pf-u-screen-reader pf-u-visible-on-lg"
+        >
+          <ToolbarItem>
+            <Unknown>
+              About Button
+            </Unknown>
+          </ToolbarItem>
+        </ToolbarGroup>
+      </Toolbar>
+    </React.Fragment>
+  }
+  topNav={<PageNav />}
+/>
+`;

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem, NavList, NavVariants } from "@patternfly/react-core";
+import NavLinkBranches from "../../../SmartComponents/NavLinkBranches";
 
 interface Props {}
 
@@ -17,12 +18,7 @@ export class PageNav extends React.Component<Props, State> {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink
-              to={`/devops/:owner/:repository/branches`}
-              activeClassName="pf-m-current"
-            >
-              Branches
-            </NavLink>
+            <NavLinkBranches />
           </NavItem>
         </NavList>
       </Nav>

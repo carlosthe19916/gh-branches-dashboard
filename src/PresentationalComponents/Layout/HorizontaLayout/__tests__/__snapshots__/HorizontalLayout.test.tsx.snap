@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<Fragment>
+  <Page
+    breadcrumb={null}
+    className=""
+    defaultManagedSidebarIsOpen={true}
+    header={
+      <HeaderProject
+        aboutButton={<ButtonAboutProject />}
+      />
+    }
+    isManagedSidebar={false}
+    mainContainerId="main-content-page-layout-horizontal-nav"
+    onPageResize={[Function]}
+    sidebar={null}
+    skipToContent={
+      <SkipToContent
+        className=""
+        component="a"
+        href="#main-content-page-layout-horizontal-nav"
+        show={false}
+      >
+        Skip to content
+      </SkipToContent>
+    }
+  />
+</Fragment>
+`;
