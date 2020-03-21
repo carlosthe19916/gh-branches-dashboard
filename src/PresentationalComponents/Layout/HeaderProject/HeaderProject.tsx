@@ -10,9 +10,7 @@ import { css } from "@patternfly/react-styles";
 import accessibleStyles from "@patternfly/react-styles/css/utilities/Accessibility/accessibility";
 
 import navBrandImage from "../../../brand.svg";
-// import imgAvatar from "../../../avatar.svg";
 import { PageNav } from "../PageNav";
-import { SignInButton } from "../../SignInButton";
 
 export interface HeaderProjectProps {
   aboutButton: React.ReactNode;
@@ -34,11 +32,6 @@ export class HeaderProject extends React.Component<HeaderProjectProps, State> {
           >
             <ToolbarItem>{aboutButton}</ToolbarItem>
           </ToolbarGroup>
-          <ToolbarGroup>
-            <ToolbarItem>
-              <SignInButton />
-            </ToolbarItem>
-          </ToolbarGroup>
         </Toolbar>
       </React.Fragment>
     );
@@ -49,7 +42,6 @@ export class HeaderProject extends React.Component<HeaderProjectProps, State> {
       <PageHeader
         logo={<Brand src={navBrandImage} alt="gh-branches-dashboard" />}
         toolbar={this.renderPageToolbar()}
-        // avatar={<Avatar src={imgAvatar} alt="Avatar image" />}
         topNav={<PageNav />}
       />
     );

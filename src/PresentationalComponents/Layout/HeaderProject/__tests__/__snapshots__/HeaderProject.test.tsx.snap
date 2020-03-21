@@ -20,11 +20,6 @@ exports[`Test snapshot 1`] = `
             </Unknown>
           </ToolbarItem>
         </ToolbarGroup>
-        <ToolbarGroup>
-          <ToolbarItem>
-            <SignInButton />
-          </ToolbarItem>
-        </ToolbarGroup>
       </Toolbar>
     </React.Fragment>
   }
