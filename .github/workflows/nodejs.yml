@@ -43,6 +43,10 @@ jobs:
           node-version: 10.x
       - run: yarn install
       - run: yarn build
+        env:
+          REACT_APP_GITHUB_ACCESS_TOKEN_URL: ${{ secrets.REACT_APP_GITHUB_ACCESS_TOKEN_URL }}
+          REACT_APP_GITHUB_AUTHORIZE_URL: ${{ secrets.REACT_APP_GITHUB_AUTHORIZE_URL }}
+          REACT_APP_GITHUB_CLIENT_ID: ${{ secrets.REACT_APP_GITHUB_CLIENT_ID }}
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v1.3.0
         with:
