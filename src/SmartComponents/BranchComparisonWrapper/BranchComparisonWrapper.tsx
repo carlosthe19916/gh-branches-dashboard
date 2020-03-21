@@ -2,6 +2,7 @@ import React from "react";
 import { FetchStatus } from "../../store/common";
 import { OwnProps } from ".";
 import { AxiosError } from "axios";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { ComparisonBranchGh } from "../../models/github-models";
 
 interface StateToProps {
@@ -40,7 +41,26 @@ export class BranchComparisonWrapper extends React.Component<Props, State> {
   }
 
   render() {
-    const { branchComparison, children } = this.props;
+    const {
+      branchComparison,
+      branchComparisonFechStatus,
+      children
+    } = this.props;
+
+    switch (branchComparisonFechStatus) {
+      case "none":
+      case "inProgress":
+        return (
+          <React.Fragment>
+            <Skeleton
+              variant="rect"
+              width={250}
+              height={800}
+              animation="wave"
+            />
+          </React.Fragment>
+        );
+    }
 
     return (
       <React.Fragment>

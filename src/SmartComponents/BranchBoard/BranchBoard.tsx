@@ -2,7 +2,7 @@ import React from "react";
 import { FetchStatus } from "../../store/common";
 import { OwnProps } from ".";
 import Box from "@material-ui/core/Box";
-import BranchComparisonBox from "../BranchComparisonWrapper";
+import BranchComparisonWrapper from "../BranchComparisonWrapper";
 import { CommitGh } from "../../models/github-models";
 import { AxiosError } from "axios";
 
@@ -37,7 +37,7 @@ export class BranchBoard extends React.Component<Props, State> {
           </h1>
         </div>
         <div className="pf-c-notification-drawer__body">
-          <BranchComparisonBox
+          <BranchComparisonWrapper
             repo={repo}
             branchBase={repoDefaultBranch}
             branchToCompare={branch}
@@ -74,7 +74,7 @@ export class BranchBoard extends React.Component<Props, State> {
                 </li>
               </ul>
             ))}
-          </BranchComparisonBox>
+          </BranchComparisonWrapper>
         </div>
       </div>
     );

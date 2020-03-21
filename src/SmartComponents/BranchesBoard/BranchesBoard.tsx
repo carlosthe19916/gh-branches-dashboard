@@ -1,9 +1,10 @@
 import React from "react";
 import { FetchStatus } from "../../store/common";
-import { Flex, FlexItem } from "@patternfly/react-core";
+import { Flex, FlexItem, CardBody, Card } from "@patternfly/react-core";
 import BranchBoard from "../BranchBoard";
 import { RepoGh, BranchGh } from "../../models/github-models";
 import { AxiosError } from "axios";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 interface StateToProps {
   ctxRepo: RepoGh | undefined;
@@ -54,6 +55,7 @@ export class BranchesBoard extends React.Component<Props, State> {
     const {
       ctxRepo,
       cxtRepoBranches,
+      ctxRepoBranchesFechStatus,
       ctxRepoDefaultBranch,
       userDefinedBranchOrder
     } = this.props;
@@ -74,6 +76,27 @@ export class BranchesBoard extends React.Component<Props, State> {
 
       return a.name.localeCompare(b.name);
     });
+
+    switch (ctxRepoBranchesFechStatus) {
+      case "none":
+      case "inProgress":
+        return (
+          <Flex>
+            {Array.apply(0, Array(4)).map((e, i) => (
+              <FlexItem key={i}>
+                <Card>
+                  <CardBody>
+                    <React.Fragment>
+                      <Skeleton variant="circle" width={30} height={30} />
+                      <Skeleton variant="text" width={250} />
+                    </React.Fragment>
+                  </CardBody>
+                </Card>
+              </FlexItem>
+            ))}
+          </Flex>
+        );
+    }
 
     return (
       <Flex>
