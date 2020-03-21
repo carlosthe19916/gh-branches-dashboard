@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useStorage } from "react-storage-hook";
 
-export interface Options {
+export interface OAuthOptions {
   authorizeUrl: string;
   accessTokenUrl: string;
   scope?: string[];
@@ -21,10 +20,7 @@ export const useOAuth2 = ({
   scope = [],
   redirectUri,
   clientID
-}: Options): [authorize] => {
-  const [state, setState] = useStorage<string>(localStorageStateName);
-  const [config, setConfig] = useStorage<string>(localStorageConfigName);
-
+}: OAuthOptions): [authorize] => {
   const configOptions = JSON.stringify({
     authorizeUrl,
     accessTokenUrl,
@@ -32,16 +28,12 @@ export const useOAuth2 = ({
     redirectUri,
     clientID
   });
-  const stateRandom = cryptoRandomString();
+  const state = cryptoRandomString();
 
-  setConfig(configOptions);
-  setState(stateRandom);
+  localStorage.setItem(localStorageConfigName, configOptions);
+  localStorage.setItem(localStorageStateName, state);
 
   const authorize = () => {
-    setState(stateRandom);
-
-    console.log("oauth2Config", config);
-
     window.location.replace(
       OAuth2AuthorizeURL({
         scope,
@@ -57,10 +49,9 @@ export const useOAuth2 = ({
 };
 
 export const OAuthCallback: React.FunctionComponent<{}> = ({ children }) => {
-  const [state] = useStorage<string>(localStorageStateName);
-  const [config] = useStorage<string>(localStorageConfigName);
-
-  const configOptions: Options = JSON.parse(config);
+  // const state = localStorage.getItem(localStorageStateName);
+  const config = localStorage.getItem(localStorageConfigName);
+  const configOptions: OAuthOptions = JSON.parse(config || "");
 
   React.useEffect(() => {
     const params: Map<string, string> = new Map();
@@ -72,7 +63,7 @@ export const OAuthCallback: React.FunctionComponent<{}> = ({ children }) => {
       params.set(v, k);
     });
 
-    if (state !== params.get("state")) throw new Error("incorrect state token");
+    // if (state !== params.get("state")) throw new Error("incorrect state token");
 
     const code: string | undefined = params.get("code");
     if (code === undefined) throw new Error("No code found");
@@ -115,10 +106,9 @@ const OAuth2AuthorizeURL = ({
     .join("&")}`;
 
 const cryptoRandomString = (): string => {
-  const entropy = new Uint32Array(10);
-  window.crypto.getRandomValues(entropy);
-  return window.btoa(entropy.join(","));
+  return Math.random().toString(36).substring(7);
 };
+
 
 const urlDecode = (urlString: string): Map<string, string> => {
   const result: Map<string, string> = new Map();
