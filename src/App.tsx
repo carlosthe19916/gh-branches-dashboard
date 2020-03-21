@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./Routes";
 import { HorizontalLayout } from "./PresentationalComponents/Layout/HorizontaLayout";
 
-import "./App.css";
 import "./App.scss";
 
 import DeleteMessageDialog from "./SmartComponents/DeleteDialog";

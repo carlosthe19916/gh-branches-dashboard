@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<Fragment>
+  <Connect(ContextRepositoryLoader)
+    repositoryId="carlosthe19916/gh-branches-dashboard"
+  >
+    <PageSection
+      variant="light"
+    >
+      <TextContent>
+        <Text
+          component="h1"
+        >
+          Branches
+        </Text>
+        <Text
+          component="p"
+        >
+          Monitor your branches here.
+        </Text>
+      </TextContent>
+    </PageSection>
+    <PageSection>
+      <Bullseye>
+        <Connect(BranchesBoard)
+          userDefinedBranchOrder={Array []}
+        />
+      </Bullseye>
+    </PageSection>
+  </Connect(ContextRepositoryLoader)>
+</Fragment>
+`;

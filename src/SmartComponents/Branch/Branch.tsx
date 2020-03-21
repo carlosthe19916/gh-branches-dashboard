@@ -33,7 +33,7 @@ export class Branch extends React.Component<Props, State> {
     const repositoryId: string = ctxRepository.full_name;
 
     return (
-      <div style={{ width: "300px" }} className="pf-c-notification-drawer">
+      <div style={{ width: "250px" }} className="pf-c-notification-drawer">
         <div className="pf-c-notification-drawer__header">
           <h1 className="pf-c-notification-drawer__header-title">
             {branch.name}
@@ -51,7 +51,10 @@ export class Branch extends React.Component<Props, State> {
               <li className="pf-c-notification-drawer__list-item pf-m-read pf-m-info pf-m-hoverable">
                 <div className="pf-c-notification-drawer__list-item-header">
                   <span className="pf-c-notification-drawer__list-item-header-icon">
-                    <i className="fas fa-check-circle" aria-hidden="true"></i>
+                    {/* <i className="fas fa-check-circle" aria-hidden="true"></i> */}
+                    {/* <i className="fas fa-check-circle">
+                      <img src={c.author.avatar_url} height="20" width="20" />
+                    </i> */}
                   </span>
                   <h2
                     className="pf-c-notification-drawer__list-item-header-title"
@@ -70,7 +73,7 @@ export class Branch extends React.Component<Props, State> {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {c.commit.message}
+                        <small>{c.commit.message}</small>
                       </a>
                     </Box>
                   </h2>

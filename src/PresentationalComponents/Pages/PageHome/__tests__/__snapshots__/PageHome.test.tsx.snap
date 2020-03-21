@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test snapshot 1`] = `
+<Fragment>
+  <PageSection>
+    <Bullseye>
+      <withRouter(SearchRepository) />
+    </Bullseye>
+  </PageSection>
+</Fragment>
+`;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   PageSection,
   PageSectionVariants,
@@ -6,32 +6,40 @@ import {
   Text,
   Bullseye
 } from "@patternfly/react-core";
-import queryString from "query-string";
+import queryString, { ParsedQuery } from "query-string";
 import { AppRouterProps } from "../../../models/routerProps";
 import ContextRepositoryLoader from "../../../SmartComponents/ContextRepositoryLoader";
 import BranchesBoard from "../../../SmartComponents/BranchesBoard";
+import { getRepositoryId } from "../../../Utils/Utils";
 
 export interface PageBranchesProps extends AppRouterProps {}
+
+export const extractBranchOrderQueryParam = (queryParams: ParsedQuery) => {
+  const branchOrderQueryParam = queryParams.branchOrder;
+
+  let result: string[] = [];
+  if (typeof branchOrderQueryParam === "string") {
+    result = [branchOrderQueryParam];
+  } else if (Array.isArray(branchOrderQueryParam)) {
+    result = branchOrderQueryParam;
+  }
+
+  return result;
+};
 
 export const PageBranches: React.FC<PageBranchesProps> = ({
   match,
   location
 }) => {
-  const repositoryId = `${match.params.owner}/${match.params.repository}`;
+  const repositoryId = getRepositoryId(
+    match.params.owner,
+    match.params.repository
+  );
 
   const queryParams = queryString.parse(location.search);
-
-  let userDefinedBranchOrder: string[] = [];
-  if (typeof queryParams.branchOrder === "string") {
-    userDefinedBranchOrder = [queryParams.branchOrder];
-  } else if (Array.isArray(queryParams.branchOrder)) {
-    userDefinedBranchOrder = queryParams.branchOrder;
-  } else if (queryParams.branchOrder) {
-    console.warn(
-      "branchOrder should be string or string[]",
-      userDefinedBranchOrder
-    );
-  }
+  let userDefinedBranchOrder: string[] = extractBranchOrderQueryParam(
+    queryParams
+  );
 
   return (
     <React.Fragment>
