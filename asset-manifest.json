@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/gh-branches-dashboard/static/css/main.0c2cf6c7.chunk.css",
+    "main.js": "/gh-branches-dashboard/static/js/main.e21b01d8.chunk.js",
+    "main.js.map": "/gh-branches-dashboard/static/js/main.e21b01d8.chunk.js.map",
+    "runtime-main.js": "/gh-branches-dashboard/static/js/runtime-main.5eedb065.js",
+    "runtime-main.js.map": "/gh-branches-dashboard/static/js/runtime-main.5eedb065.js.map",
+    "static/css/2.91edd22b.chunk.css": "/gh-branches-dashboard/static/css/2.91edd22b.chunk.css",
+    "static/js/2.cd9e2657.chunk.js": "/gh-branches-dashboard/static/js/2.cd9e2657.chunk.js",
+    "static/js/2.cd9e2657.chunk.js.map": "/gh-branches-dashboard/static/js/2.cd9e2657.chunk.js.map",
+    "index.html": "/gh-branches-dashboard/index.html",
+    "precache-manifest.d26500f13349b4e203e25ed51459e961.js": "/gh-branches-dashboard/precache-manifest.d26500f13349b4e203e25ed51459e961.js",
+    "service-worker.js": "/gh-branches-dashboard/service-worker.js",
+    "static/css/2.91edd22b.chunk.css.map": "/gh-branches-dashboard/static/css/2.91edd22b.chunk.css.map",
+    "static/css/main.0c2cf6c7.chunk.css.map": "/gh-branches-dashboard/static/css/main.0c2cf6c7.chunk.css.map",
+    "static/js/2.cd9e2657.chunk.js.LICENSE.txt": "/gh-branches-dashboard/static/js/2.cd9e2657.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/gh-branches-dashboard/static/media/pficon.f907e666.ttf",
+    "static/media/brand.svg": "/gh-branches-dashboard/static/media/brand.8daf3f5b.svg",
+    "static/media/logo.svg": "/gh-branches-dashboard/static/media/logo.5d5d9eef.svg",
+    "static/media/background-image.css": "/gh-branches-dashboard/static/media/pfbg_768@2x.0099dea3.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5eedb065.js",
+    "static/css/2.91edd22b.chunk.css",
+    "static/js/2.cd9e2657.chunk.js",
+    "static/css/main.0c2cf6c7.chunk.css",
+    "static/js/main.e21b01d8.chunk.js"
+  ]
+}

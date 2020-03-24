@@ -1,0 +1,1 @@
+{"version":3,"sources":["DeleteDialog.scss"],"names":[],"mappings":"AAAA,mDACI,2BAA6B","file":"main.0c2cf6c7.chunk.css","sourcesContent":[".pf-c-modal-box__footer > .pf-c-button:first-of-type {\n    margin-left: unset !important;\n}"]}
